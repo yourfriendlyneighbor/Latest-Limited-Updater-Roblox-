@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Latest Limtied Update</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400">
+    <link         href="data:image/x-icon;base64,AAABAAEAEBAAAAEACABoBQAAFgAAACgAAAAQAAAAIAAAAAEACAAAAAAAAAEAAAAAAAAAAAAAAAEAAAAAAAAAAAAAkZKzAAEA8QAICKAAAAC3AAAAZABKQ/gAGBPDANvc6QDh4+4AAACOACcf/AAAAPoACQiQADc4gwAAAMAAqafTAAQEagAiG+8APDb9ABgXjwBFRZAAAABdACUd8gAAAI8A6er0AExI4wASEW8A5ebvACki/QABAIcAAAFjAEtI2wA8Nv4AAAC5AFdT5QAsJf0AZGSkABARXwADA2YAAABeAAAA4wAnH/4ABQVpABAMyQBHQPsAm5zDAOjm8ABDP90AAADsAAIA7AAAAF8AKCD8AN3c7AAmH/8AAQDkAAAA/QABAPUAS0ygAAEBXQATEL8AAACaACcmmQAAAGAAKSD9AAAA5QCemvwABANgAO7u9AAEA5IAAAD2ALSz1gAAALwAJSWMACUd/gAEAo0APDX8AAEA5gAAAKwABwhbAAAAiwDt7vUALiulACsrhAAAAGoAISCTAAUFZAB4cvwAAACcAKqq0AABAJwAAAC1ADw2+gARDpUAFhWBAAAAYgAAAOcACwmsAAAArQAAAFoAGxbiAAAAcwAAAIwAAQFoACUe/QAcFf4AS0fjAAAAnQAeGP4AAADoAEZD1gAKB6IA4ODtAAIDYwDm5/IAR0H9ADQt9AAAAI0AAQCNACUe/gABAWkAWVuzACYe/gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAvK2YYEQkAAAAAAAAAAEQpQVs/G1RtTRwAAAAAACVgM3U/dgdvF3cdIS0AAABlPnRhE0kAAAAANFwAAAA3TBQAADNLAAAAEl0WMgAAMWxZADpWAAAAQDNmZjE1J0hpAAAGRQAAeh5mZmZOeAoFSgAAMAAAJF5SIDtQM2sKBTYAAAAAAAAAAAAQIyhacQ96AAAsRwAAAAAAAEpiZ1EEKgAAVVAmAAAAAABqRggAQwsAAAAaDQAAAAADYzkAAA5kAAAAAAAAAAAAaAxwAABTVzx5AAAAAAAAAG4VAAAAAABRAjgiP08BQnMuAAAAAAAAAAAZHz1YX3IAAAAAAPgfAADgBwAAwAEAAMDzAACM4QAAicAAABmAAAAbAAAAH/AAABn4AAAY+AAAnPEAAJ/xAACH8wAA4AcAAPgfAAA=" rel="icon" type="image/x-icon" />
+    <style media="screen">
+      body{ font-family: 'Lato', sans-serif }
+    </style>
+  </head>
+  <body>
+    <div id="data"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.1/socket.io.js" charset="utf-8"></script>
+    <script type="text/javascript">
+      window.onload = function(){
+        var
+        socket = io(),
+        audio = new Audio('airhorn.mp3'),
+        urlRegex = /(https?:\/\/[^\s]+)/g;
+
+        socket.on('new limited update', (data) => {
+          var x = data.replace(/(?:https?|ftp):\/\/[\n\S]+/g, '');
+          var robux = x.match(/\d+/g)[0] + x.match(/\d+/g)[1] + x.match(/\d+/g)[2];
+          var e = document.createElement('p');
+          e.appendChild(document.createTextNode(robux.replace("undefined","")));
+          document.getElementById('data').appendChild(e);
+
+          var e = document.createElement('p');
+          e.appendChild(document.createTextNode(x.replace(/[0-9]/g, "").replace(/,/g , "")));
+          document.getElementById('data').appendChild(e);
+
+          data.replace(urlRegex, function(url) {
+            var e = document.createElement('a');
+            e.appendChild(document.createTextNode(url));
+            e.href = url;
+            document.getElementById('data').appendChild(e)
+          })
+          audio.play()
+        })
+      }
+    </script>
+  </body>
+</html>
